@@ -1,21 +1,6 @@
 {
   "rewrites": [
-    {
-      "source": "/api/proxy/:path*",
-      "destination": "/api/proxy"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/api/proxy/:path*",
-      "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate, proxy-revalidate" }
-      ]
-    }
+    { "source": "/api/proxy/:path*", "destination": "/api/proxy" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
