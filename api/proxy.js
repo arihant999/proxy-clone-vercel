@@ -7,16 +7,15 @@ export default async function handler(req, res) {
     });
 
     const buffer = await response.arrayBuffer();
-    const decoder = new TextDecoder('utf-8');
-    let html = decoder.decode(buffer);
+    const html = new TextDecoder('utf-8').decode(buffer);
 
-    // Replace all Telegram links with your channel link
-    html = html.replace(/https:\/\/t\.me\/[^\s"'<>]+/g, 'https://t.me/+rc5Psv_S2VJkMGM1');
+    // Replace original Telegram links with your custom link
+    const finalHtml = html.replace(/https:\/\/t\.me\/[^\s"'<>]+/g, 'https://t.me/+rc5Psv_S2VJkMGM1');
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate');
-    res.status(200).end(html);
-  } catch (error) {
-    res.status(500).end("Proxy Error: " + error.message);
+    res.status(200).end(finalHtml);
+  } catch (err) {
+    res.status(500).end('Proxy Error: ' + err.message);
   }
 }
