@@ -1,6 +1,19 @@
 {
-  "version": 2,
-  "routes": [
-    { "src": "/", "dest": "/api/proxy" }
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "https://studyuk.fun/goal/"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "s-maxage=60, stale-while-revalidate"
+        }
+      ]
+    }
   ]
 }
