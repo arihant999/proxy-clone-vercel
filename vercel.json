@@ -1,19 +1,9 @@
 {
-  "rewrites": [
-    {
-      "source": "/",
-      "destination": "https://studyuk.fun/goal/"
-    }
+  "version": 2,
+  "builds": [
+    { "src": "api/proxy.py", "use": "@vercel/python" }
   ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "s-maxage=60, stale-while-revalidate"
-        }
-      ]
-    }
+  "routes": [
+    { "src": "/", "dest": "/api/proxy.py" }
   ]
 }
