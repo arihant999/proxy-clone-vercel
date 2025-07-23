@@ -1,19 +1,18 @@
-import fetch from 'node-fetch';
-
 export default async function handler(req, res) {
-  const targetUrl = "https://studyuk.fun/goal/";
+  const response = await fetch("https://studyuk.fun/goal", {
+    headers: {
+      "User-Agent": req.headers["user-agent"] || "",
+    },
+  });
 
-  try {
-    const response = await fetch(targetUrl);
-    let html = await response.text();
+  let html = await response.text();
 
-    html = html.replace(/https:\\/\\/t\\.me\\/[^"' ]+/g, "https://t.me/+rc5Psv_S2VJkMGM1");
+  // Replace Telegram link in HTML with yours
+  html = html.replace(
+    /https:\/\/t\.me\/[^\s"'<>]+/g,
+    "https://t.me/+rc5Psv_S2VJkMGM1"
+  );
 
-    res.setHeader("Content-Type", "text/html");
-    res.setHeader("Cache-Control", "no-cache");
-
-    return res.status(200).send(html);
-  } catch (err) {
-    return res.status(500).send("Proxy Failed: " + err.message);
-  }
+  res.setHeader("Content-Type", "text/html");
+  res.status(200).send(html);
 }
